@@ -21,7 +21,7 @@ This project demonstrates API testing using Postman, providing a collection of t
 - Newman
 - Newman Html Report Library
 
-  ### **Installation**
+### **Installation**
 
 1. Postman: If you haven't already, [download and install Postman.](https://www.postman.com/downloads/)
 2. Clone the repository:
@@ -38,6 +38,75 @@ This project demonstrates API testing using Postman, providing a collection of t
 5. Newman and Report Installation Process:
     - Newman Install Command:
      ```console 
+      npm install -g newman
+    ```
+    - Newman Html Report Install Command:
+     ```console 
+      npm install -g newman-reporter-htmlextra
+    ```
+
+
+ ### **Usage**
+1. Select Environment:
+    -   In Postman, select the appropriate environment (e.g., Development, Production) from the top-right dropdown.
+3. Run Collection:
+    -   Select the imported collection from the Collections sidebar.
+    -   Click on the Runner button to open the collection runner.
+    -   Select the desired environment.
+    -   Click Start Test to run the collection.
+8. View Results:
+    -   Once the tests are complete, view the results in the Runner tab.
+    -   Detailed test results can be viewed for each request.
+
+## **Testing**
+
+## Test Case Scenarios:
+
+## _**1. Create New Booking**_
+
+### Request URL: https://restful-booker.herokuapp.com/booking/
+### Request Method: POST
+### Pre-request Script:
+```console
+var firstName = pm.variables.replaceIn("{{$randomFirstName}}")
+console.log(firstName)
+pm.environment.set("firstName",firstName)
+
+
+
+//Last Name
+var lastName = pm.variables.replaceIn("{{$randomLastName}}")
+pm.environment.set("lastName",lastName)
+
+
+// Total price
+var totalPrice = pm.variables.replaceIn("{{$randomInt}}")
+pm.environment.set("totalPrice",totalPrice)
+
+
+//DepositPaid
+var depositpaid = pm.variables.replaceIn("{{$randomBoolean}}")
+pm.environment.set("depositpaid",depositpaid)
+
+
+
+//Date
+const moment = require ('moment')
+const today = moment()
+//console.log(today.add(1, 'd').add(3, 'M').format("YYYY-MM-DD"))
+
+var checkin = today.add(1, 'd').add(3, 'M').format("YYYY-MM-DD")
+pm.environment.set("checkin", checkin)
+
+
+var checkout = today.add(1, 'd').add(3, 'M').format("YYYY-MM-DD")
+pm.environment.set("checkout", checkout)
+
+
+
+var additionalneeds = pm.variables.replaceIn("{{$randomProduct}}")
+pm.environment.set("additionalneeds",additionalneeds)
+```
       npm install -g newman
     ```
     - Newman Html Report Install Command:
