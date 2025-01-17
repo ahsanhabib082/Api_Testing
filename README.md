@@ -211,3 +211,95 @@ pm.environment.set("acess_token",jsonData.token)
 }
 ```
 
+ ## _**4. Update the Booking Details**_
+### Request URL: https://restful-booker.herokuapp.com/booking/bookingid
+### Request Method: PUT
+### Pre-request Script:
+```console
+var updated_firstName = pm.variables.replaceIn("{{$randomFirstName}}")
+pm.environment.set("updated_firstName",updated_firstName)
+
+var updated_lastName = pm.variables.replaceIn("{{$randomLastName}}")
+pm.environment.set("updated_lastName",updated_lastName)
+
+var updated_totalPrice = pm.variables.replaceIn("{{$randomInt}}")
+pm.environment.set("updated_totalPrice",updated_totalPrice)
+
+var updated_depositpaid = pm.variables.replaceIn("{{$randomBoolean}}")
+pm.environment.set("updated_depositpaid",updated_depositpaid)
+
+const moment = require ('moment')
+const today = moment()
+
+var updated_checkin = today.add(1, 'd').add(3, 'M').format("YYYY-MM-DD")
+pm.environment.set("updated_checkin", updated_checkin)
+
+
+var updated_checkout = today.add(1, 'd').add(3, 'M').format("YYYY-MM-DD")
+pm.environment.set("updated_checkout", updated_checkout)
+
+
+
+var updated_additionalneeds = pm.variables.replaceIn("{{$randomProduct}}")
+pm.environment.set("updated_additionalneeds",updated_additionalneeds)
+```
+
+**Request Body:** 
+ ```console
+{
+	"firstname" : "{{updated_firstName}}",
+	"lastname" : "{{updated_lastName}}",
+	"totalprice" : {{updated_totalPrice}},
+	"depositpaid" : {{updated_depositpaid}},
+	"bookingdates" : {
+    	"checkin" : "{{updated_checkin}}",
+    	"checkout" : "{{updated_checkout}}"
+	},
+	"additionalneeds" : "{{updated_additionalneeds}}"
+}
+```
+**Response Body:**
+ ```console 
+
+{
+    "firstname": "Laurine",
+    "lastname": "VonRueden",
+    "totalprice": 478,
+    "depositpaid": false,
+    "bookingdates": {
+        "checkin": "2025-04-18",
+        "checkout": "2025-07-19"
+    },
+    "additionalneeds": "Tuna"
+}
+```
+
+ ## _**5. Delete Booking Record**_
+
+### Request URL: https://restful-booker.herokuapp.com/booking/bookingid
+### Request Method: DELETE
+### Response Body: None
+## Run Command:  
+- Run Command for Console: 
+```console 
+newman run Ahsan_Habib_SQA29.postman_collection.json -e Ahsan_Habib.postman_environment.json
+```
+- Run Command for Report: 
+```console 
+ newman run Ahsan_Habib_SQA29.postman_collection.json -e Ahsan_Habib.postman_environment.json -r cli,htmlextra
+```
+## Newman Report Summary:
+![image](https://github.com/user-attachments/assets/330947a2-ede3-46bc-9092-07ecc5a8ccfb)
+
+![image](https://github.com/user-attachments/assets/d4fb2e74-245e-4828-979c-52b5ec5262ba)
+
+![image](https://github.com/user-attachments/assets/016284b8-6961-42c5-8bdb-f108a62dc608)
+![image](https://github.com/user-attachments/assets/e48c6fd0-80e3-4115-8875-78a6ddc76bf3)
+![image](https://github.com/user-attachments/assets/f4c8ff9f-e1fc-474b-b1fc-3f14c0e557d7)
+
+
+
+
+
+
+
