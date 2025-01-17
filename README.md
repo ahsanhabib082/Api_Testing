@@ -107,9 +107,107 @@ pm.environment.set("checkout", checkout)
 var additionalneeds = pm.variables.replaceIn("{{$randomProduct}}")
 pm.environment.set("additionalneeds",additionalneeds)
 ```
-      npm install -g newman
-    ```
-    - Newman Html Report Install Command:
-     ```console 
-      npm install -g newman-reporter-htmlextra
-    ```
+
+ **Request Body:** 
+ ```console 
+
+{
+	"firstname" : "{{firstName}}",
+	"lastname" : "{{lastName}}",
+	"totalprice" : {{totalPrice}},
+	"depositpaid" : {{depositpaid}},
+	"bookingdates" : {
+    	"checkin" : "{{checkin}}",
+    	"checkout" : "{{checkout}}"
+	},
+	"additionalneeds" : "{{additionalneeds}}"
+}
+```
+
+ **Response Body:**
+ ```console
+{
+    "bookingid": 5112,
+    "booking": {
+        "firstname": "Camylle",
+        "lastname": "Fay",
+        "totalprice": 289,
+        "depositpaid": true,
+        "bookingdates": {
+            "checkin": "2025-04-18",
+            "checkout": "2025-07-19"
+        },
+        "additionalneeds": "Bacon"
+    }
+}
+```
+## _**2. Get Booking Details By ID**_
+### Request URL: https://restful-booker.herokuapp.com/booking/bookingid
+### Request Method: GET
+### Response Body:
+ ```console
+{
+    "firstname": "Camylle",
+    "lastname": "Fay",
+    "totalprice": 289,
+    "depositpaid": true,
+    "bookingdates": {
+        "checkin": "2025-04-18",
+        "checkout": "2025-07-19"
+    },
+    "additionalneeds": "Bacon"
+}
+```
+### Request Body:
+```console
+
+{
+	"firstname" : "{{firstName}}",
+	"lastname" : "{{lastName}}",
+	"totalprice" : {{totalPrice}},
+	"depositpaid" : {{depositpaid}},
+	"bookingdates" : {
+    	"checkin" : "{{checkin}}",
+    	"checkout" : "{{checkout}}"
+	},
+	"additionalneeds" : "{{additionalneeds}}"
+}
+```
+### Response Body:
+```console
+{
+    "firstname": "Camylle",
+    "lastname": "Fay",
+    "totalprice": 289,
+    "depositpaid": true,
+    "bookingdates": {
+        "checkin": "2025-04-18",
+        "checkout": "2025-07-19"
+    },
+    "additionalneeds": "Bacon"
+}
+```
+
+## _**3. Create A Token For Authentication.**_
+### Request URL: https://restful-booker.herokuapp.com/auth
+### Request Method: POST
+### Pre-request Script: None
+### Post-request Script:
+```console
+var jsonData = pm.response.json()
+pm.environment.set("acess_token",jsonData.token)
+```
+### Request Body:
+ ```console 
+{
+	"username": "admin",
+	"password": "password123"
+}
+```
+  **Response Body:**
+ ```console 
+{
+    "token": "06eb798bf6f2caa"
+}
+```
+
